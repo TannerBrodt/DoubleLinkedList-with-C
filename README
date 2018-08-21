@@ -1,0 +1,80 @@
+
+#Project 3
+
+* Author: Tanner Brodt
+* Class: CS253 Section 2
+
+##Necessary Files
+
+*README
+
+*Directory libsrc
+    ->List.c
+    ->List.h
+    ->MakeFile
+    ->Node.c
+    ->Node.h
+
+*Directory testsuite
+    ->Makefile
+    ->Object.c
+    ->Object.h
+    ->RandomTestList.c  (Included, not necessary)
+    ->SimpleTestList.c  (Included, not necessary)
+    ->UnitTestList.c
+
+##Overview
+
+The program implements a Doubly Linked List that can be tested using a unit test list. It also fully allocates and
+frees any memory that was needed to make it.
+
+##Compiling and Using
+
+
+To begin compiling the file, start by making sure all of the necessary files are included above. 
+In order for the two directories (libsrc and testsuite) to be able to interact with eachother,
+input the following command into the command line while in the p3 directory:
+
+   export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:./lib
+
+Now you should be able to call make in order for all of the files to be compiled at once.
+after the programs compile correctly, run the UnitTestList by inputting:
+
+    testsuite/UnitTestList
+
+while still inside of the p3 directory.
+
+Note:
+If you want to run your own test for List.c, put your file into the testsuite directory and input: 
+                        testsuite/<yourtest>                                                       
+after you have compiled with make.                                                                      
+
+
+##Discussion
+
+Writing the Doubly Linked List methods in the List.c file was not too combersome of a task. I was already familiar
+with the concept due to taking CS221 already, which had the class writing methods for a Double Linked List in Java.
+I also was accustomed with the idea of writing my own tests to test all of the methods that I wrote and it was not too 
+particularly drastic making the change to writing it in C.
+
+There definitely were many twists when it came to writing logic in List.c.
+I found using node structure pointers instead of objects to be a little tricky especially when referencing the
+current list and head/tail nodes. Using the operator "->" was something that I was not use to, but after looking at
+the code and seeing an example of what "->" does in class, it didn't seem to be too different from using objects in java
+(when talking about node references in a linked list).
+
+The hardest part of the assignment was freeing memory and making sure that the freelist() function was working properly.
+The problem was that C doesn't have a garbage collector and Java does. I'm really use to Java handling my garbage, so I
+was thrown through a loop when it came to handling it on my own using the free() function. I tried to use Valgrind after I 
+wrote many tests and was getting no failures. It was astonishing to see over a hundred memory leaks were occurring in 
+my UnitTestList. I was stumped for a while trying to understand how to handle these leaks, in fact I was sitting with multiple people all confused how to do it. We collaborated and finally came to the realization to use the freeNode() function. Wow that
+helped substantially. I now have no memory leaks to speak of and it runs correctly under my UnitTests.
+
+Overall: I found that the project was pretty interesting and satisfying. Creating tests to check the methods that I make 
+    is supremely helpful and understanding how to allocate and free memory is a very valuable skill.
+    I thought it was a fun assignment.
+
+
+##Sources used
+
+The C Programming Language by Brian W. Kernighan (for CS253)
